@@ -7,6 +7,7 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        maven { url = uri("https://artifactory.appodeal.com/appodeal") }
         mavenCentral()
         gradlePluginPortal()
     }
