@@ -15,4 +15,19 @@
     android:id="@+id/appodealMrecView"
     android:layout_width="300dp"
     android:layout_height="250dp" />
+
+    <com.appodeal.ads.nativead.NativeAdViewNewsFeed
+    android:id="@+id/native_news_feed"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+<com.appodeal.ads.nativead.NativeAdViewAppWall
+    android:id="@+id/native_app_wall"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+<com.appodeal.ads.nativead.NativeAdViewContentStream
+    android:id="@+id/native_content_stream"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 </LinearLayout>
