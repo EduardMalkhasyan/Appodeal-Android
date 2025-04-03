@@ -19,6 +19,7 @@ import com.appodeal.ads.initializing.ApdInitializationError
 import com.appodeal.ads.utils.Log as AppodealLog
 import com.example.appodeal_android.ui.theme.AppodealAndroidTheme
 import android.util.Log
+import com.appodeal.ads.NativeMediaViewContentType
 import com.example.appodeal_android.R
 
 class MainActivity : ComponentActivity() {
@@ -63,9 +64,10 @@ class MainActivity : ComponentActivity() {
                         if (!isInitialized) {
                             Appodeal.setTesting(true)
                             Appodeal.setLogLevel(AppodealLog.LogLevel.verbose)
+                            Appodeal.setPreferredNativeContentType(NativeMediaViewContentType.Auto)
 
                             val adTypes = Appodeal.BANNER or Appodeal.INTERSTITIAL or
-                                    Appodeal.REWARDED_VIDEO or Appodeal.MREC
+                                    Appodeal.REWARDED_VIDEO or Appodeal.MREC or Appodeal.NATIVE
 
                             Appodeal.initialize(this@MainActivity, appKey, adTypes,
                                 object : ApdInitializationCallback {
@@ -124,6 +126,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Show Rewarded Ad")
+                }
+            }
+
+            item {
+                Button(
+                    onClick = {
+                        if (Appodeal.isLoaded(Appodeal.NATIVE)) {
+                            // Native Add
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Show Native Ad")
                 }
             }
 
