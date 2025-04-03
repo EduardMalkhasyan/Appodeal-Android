@@ -24,6 +24,8 @@ import android.widget.TextView
 import com.appodeal.ads.NativeAd
 import com.appodeal.ads.NativeMediaViewContentType
 import com.appodeal.ads.nativead.NativeAdView
+import com.appodeal.ads.nativead.NativeAdViewAppWall
+import com.appodeal.ads.nativead.NativeAdViewContentStream
 import com.appodeal.ads.nativead.NativeAdViewNewsFeed
 import com.example.appodeal_android.R
 
@@ -44,23 +46,6 @@ class MainActivity : ComponentActivity() {
                     AppodealScreen()
                 }
             }
-        }
-    }
-
-    private fun showNativeAd() {
-        val nativeAdView = findViewById<NativeAdViewNewsFeed>(R.id.native_news_feed)
-
-        if (Appodeal.isLoaded(Appodeal.NATIVE)) {
-            val nativeAd: NativeAd? = Appodeal.getNativeAds(1).firstOrNull()
-
-            if (nativeAd != null) {
-                nativeAdView.registerView(nativeAd)
-                Log.d("Appodeal", "Native ad displayed!")
-            } else {
-                Log.e("Appodeal", "No native ad available")
-            }
-        } else {
-            Log.e("Appodeal", "Native ads not loaded yet")
         }
     }
 
@@ -171,7 +156,7 @@ class MainActivity : ComponentActivity() {
                 if (nativeAd != null) {
                     AndroidView(
                         factory = { ctx ->
-                            NativeAdViewNewsFeed(ctx).apply {
+                            NativeAdViewContentStream(ctx).apply {
                                 registerView(nativeAd!!)
                             }
                         },
