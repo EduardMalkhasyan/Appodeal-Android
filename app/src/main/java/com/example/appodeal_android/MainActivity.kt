@@ -19,7 +19,12 @@ import com.appodeal.ads.initializing.ApdInitializationError
 import com.appodeal.ads.utils.Log as AppodealLog
 import com.example.appodeal_android.ui.theme.AppodealAndroidTheme
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
+import com.appodeal.ads.NativeAd
 import com.appodeal.ads.NativeMediaViewContentType
+import com.appodeal.ads.nativead.NativeAdView
+import com.appodeal.ads.nativead.NativeAdViewNewsFeed
 import com.example.appodeal_android.R
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +44,23 @@ class MainActivity : ComponentActivity() {
                     AppodealScreen()
                 }
             }
+        }
+    }
+
+    private fun showNativeAd() {
+        val nativeAdView = findViewById<NativeAdViewNewsFeed>(R.id.native_news_feed)
+
+        if (Appodeal.isLoaded(Appodeal.NATIVE)) {
+            val nativeAd: NativeAd? = Appodeal.getNativeAds(1).firstOrNull()
+
+            if (nativeAd != null) {
+                nativeAdView.registerView(nativeAd)
+                Log.d("Appodeal", "Native ad displayed!")
+            } else {
+                Log.e("Appodeal", "No native ad available")
+            }
+        } else {
+            Log.e("Appodeal", "Native ads not loaded yet")
         }
     }
 
@@ -129,18 +151,36 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
+
+
             item {
+                var nativeAd by remember { mutableStateOf<NativeAd?>(null) }
+                val context = LocalContext.current
+
                 Button(
                     onClick = {
                         if (Appodeal.isLoaded(Appodeal.NATIVE)) {
-                            // Native Add
+                            nativeAd = Appodeal.getNativeAds(1).firstOrNull()
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Show Native Ad")
                 }
+
+                if (nativeAd != null) {
+                    AndroidView(
+                        factory = { ctx ->
+                            NativeAdViewNewsFeed(ctx).apply {
+                                registerView(nativeAd!!)
+                            }
+                        },
+                        update = { it.registerView(nativeAd!!) }
+                    )
+                }
             }
+
+
 
             item {
                 Button(
