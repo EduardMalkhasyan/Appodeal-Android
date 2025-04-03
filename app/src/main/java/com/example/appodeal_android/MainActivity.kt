@@ -1,7 +1,6 @@
 package com.example.appodeal_android
 
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,6 +30,9 @@ import com.appodeal.ads.NativeAd
 import com.appodeal.ads.initializing.ApdInitializationCallback
 import com.appodeal.ads.initializing.ApdInitializationError
 import com.example.appodeal_android.ui.theme.AppodealAndroidTheme
+import com.google.firebase.dataconnect.LogLevel
+import android.util.Log as Log
+import com.appodeal.ads.utils.Log as AppodealLog
 
 class MainActivity : ComponentActivity() {
     private val TAG = "AppodealTest"
@@ -60,6 +62,7 @@ class MainActivity : ComponentActivity() {
     private fun initializeAppodeal() {
         Log.d(TAG, "Starting Appodeal initialization")
         Appodeal.setTesting(true) // Enable test mode
+        Appodeal.setLogLevel(AppodealLog.LogLevel.verbose)
         val adTypes = Appodeal.BANNER or Appodeal.INTERSTITIAL or Appodeal.REWARDED_VIDEO or
                 Appodeal.MREC or Appodeal.NATIVE
         Appodeal.initialize(this, APP_KEY, adTypes, object : ApdInitializationCallback {
