@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.appodeal_android"
+        applicationId = "com.bugigamesAndroidAd.test"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
